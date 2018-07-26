@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>GED Authentication</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <header name = "Access-Control-Allow-Origin" value = "*" />
+</head>
+
+<body>
+    <div class="container well mt-5">
+        <h1>Ação do GED - Testando autenticação de Serviço API - JSON</h1>
+    </div>
+    
+    <form action="ged_authentication.php" method="post" name="formGED">
+        <div class="container mt-5">
+            <div class="form-group">
+                <label>URL</label>
+                <input required type="text" name="url" placeholder="http://app-grupotb.gedtaugor.com.br" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>login</label>
+                <input required placeholder="usuário" type="text" name="username" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <input required placeholder="senha" type="text" name="password" class="form-control" />
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Realizar Autenticação</button>
+
+        </div>
+    </form>
+
+    <!-- jQuery & Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</body>
+
+</html>
+
