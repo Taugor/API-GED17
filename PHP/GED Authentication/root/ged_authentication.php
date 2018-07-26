@@ -1,6 +1,6 @@
 <html>
     <body>
-        <!-- Realização da Autorização -->
+        <!-- Realização da Autorização dddd -->
         <?php
             include_once("./scripts/credential.php");          //incluindo classe que cuidará dos dados do usuário
             include_once("./scripts/ged_session_manager.php"); //incluindo classe que cuidará da autorização
