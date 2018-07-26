@@ -1,0 +1,57 @@
+<div class="container well">
+    <h1>Ação do GED - Testando autenticação de Serviço API - JSON</h1>
+</div>
+
+<form name="formGED">
+    <div class="container">
+        <div class="form-group">
+            <label>URL</label>
+            <input ng-model="vm.gedSessionManager.URL" ng-minlength="10" required type="text" placeholder="http://app-grupotb.gedtaugor.com.br"
+                class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>login</label>
+            <input ng-model="vm.gedSessionManager.username" required ng-minlength="6" placeholder="usuário" type="text" class="form-control"
+            />
+        </div>
+        <div class="form-group">
+            <label>Senha</label>
+            <input ng-model="vm.gedSessionManager.password" required ng-minlength="6" type="text" placeholder="senha" placeholder
+                class="form-control" />
+        </div>
+
+        <!-- no click tenta logar -->
+        <button ng-click="vm.tryToLogin()" ng-disabled="formGED.$invalid" type="submit" class="btn btn-primary">Realizar Autenticação</button>
+
+        <div class="mt-5">
+            <!-- mostra div somente se não houver erros -->
+            <div ng-if="gedSessionManager.error == null" class="form-group">
+                <!-- mostra div somente se tivermos uma url para redirect -->
+                <div ng-if="vm.gedSessionManager.httpRedirect != null" class="form-group">
+                    <h1>Retorno do Login</h1>
+                    <div class="well">
+                        <h2>JSON Completo</h2>
+                        <label>
+                            <span style="white-space: normal;">{{vm.gedSessionManager.returnJson}}</span>
+                        </label>
+                    </div>
+
+                    <div class="well">
+                        <h2>URL utilizada para redirect</h2>
+                        <label>{{vm.gedSessionManager.httpRedirect}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- mostra div somente se houver erros -->
+            <div class="form-group" ng-if="vm.gedSessionManager.error != null">
+                <div class="well">
+                    <h1>Algum erro aconteceu</h1>
+                    <label>
+                        <span style="white-space: normal;">{{vm.gedSessionManager.error}}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
