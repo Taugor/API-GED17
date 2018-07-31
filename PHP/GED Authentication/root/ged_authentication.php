@@ -1,6 +1,6 @@
 <html>
     <body>
-        <!-- Realização da Autorização dddd -->
+        <!-- Realização da Autorização -->
         <?php
             include_once("./scripts/credential.php");          //incluindo classe que cuidará dos dados do usuário
             include_once("./scripts/ged_session_manager.php"); //incluindo classe que cuidará da autorização
@@ -77,7 +77,13 @@
                             $gedSessionManager->SetJson($result); //setando json retornado pelo servidor no session manager
 
                             //montado url para redirect
-                            $loginName = $result->User->LoginName = substr(1 + strrpos($result->User->LoginName, "\\"), strlen($result->User->LoginName));
+                            $loginName = null;
+                            $name = $result->User->LoginName;
+                            
+                            if (($pos = strpos($name, "\\")) !== FALSE) { 
+                                $loginName = substr($name, $pos+1); 
+                            }
+
                             $redirectUrl = $url.'/_layouts/TaugorGED17/App/Authenticate.aspx?username='.$loginName.'&token='.$result->RequestToken;
 
                             //setando url para redirect
@@ -121,6 +127,12 @@
                 return (HTTPRequest::PostRequest($requestUrl, $data));
             }
 
+            function RedirectTo($url)
+            {
+                header("Location: ". $url);
+                exit;
+            }
+
             //Função auxiliar para debbugar no console alguma váriavel php
             function consoleLog($data)
             {
@@ -131,7 +143,8 @@
 
         <!--  Continuação do HTML  -->
         <div class="container my-5">
-            <form> 
+            <form>  
+            <!-- <form id="Redirect URL" action="./scripts/redirect_to_ged.php"> -->
                 <!-- se não temos erros no manager da sessão mostrar:  -->
                 <?php if ($gedSessionManager != null && $gedSessionManager->GetError() == null) { ?> 
                     <div class="form-group mt-5">
@@ -150,10 +163,10 @@
                                 </div>
 
                                 <div class="well">
-                                    <h2>URL utilizada para redirect</h2>
-                                    <label> 
+                                    <h2>Utilizar esta URL para redirect</h2>
+                                    <label name="gedURL"> 
                                         <?php 
-                                            echo ($gedSessionManager->GetHTTPRedirect());
+                                            echo($gedSessionManager->GetHTTPRedirect());
                                         ?> 
                                     </label>
                                 </div>
@@ -178,6 +191,16 @@
                     </div>
                 <?php } ?>
             </form>
+
+            <?php if ($gedSessionManager != null && $gedSessionManager->GetError() == null && $gedSessionManager->GetHTTPRedirect() != null) { ?>  
+                <br>
+                <br>
+                <a href="<?php echo($gedSessionManager->GetHTTPRedirect()) ?>"> Redirectionar para o GED </a>
+                <br>
+                <br>
+                <iframe src="<?php echo($gedSessionManager->GetHTTPRedirect()) ?>" title="GED Authorization" frameborder="3" height="80%" width="100%"></iframe>
+            <?php } ?>
+
         </div>
     </body>
 </html>
